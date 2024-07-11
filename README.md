@@ -1,1 +1,1 @@
-# ts-calcluator
+# ts-calculator
