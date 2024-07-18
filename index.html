@@ -3,13 +3,21 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" type="image/png" href="./assets/favicon.png" />
         <title>TS Calculator</title>
+        <link rel="stylesheet" type="text/css" href="app.css" />
+        <link rel="icon" type="image/png" href="./assets/favicon.png" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet"
+        />
+        <script defer src="app.js"></script>
     </head>
     <body>
         <div class="calculator">
             <div class="calculator-display">
-                <p>123</p>
+                <p class="previousNumber">123</p>
                 <span class="mathSymbol">+</span>
                 <p class="currentNumber">123123</p>
             </div>
@@ -32,14 +40,14 @@
                 <button class="equals">=</button>
                 <button class="number">0</button>
                 <button class="number">00</button>
-                <button class="number">.</button>
+                <button class="number">,</button>
             </div>
             <div class="calculator-history">
                 <p class="calculator-history_title">History</p>
             </div>
             <button class="calculator-history_btn">Clear History</button>
             <hr />
-            <ul class="calculator-histor_entries"></ul>
+            <ul class="calculator-history_entries"></ul>
         </div>
     </body>
 </html>
