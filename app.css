@@ -24,9 +24,9 @@ body {
     height: 60vh;
     min-width: 370px;
     max-width: 370px;
-    border: 2px solid whitesmoke;
+    border: 1px solid whitesmoke;
     border-radius: 5px;
-    padding: 10px;
+    padding: 20px;
     margin: 5px;
 }
 
@@ -34,7 +34,6 @@ body {
     width: 100%;
     min-height: 20%;
     max-height: min-content;
-    /* border: 2px solid whitesmoke; */
     border-radius: 5px;
     background-color: rgba(71, 71, 71, 0.14);
     box-shadow: 2px 14px 15px 5px rgba(0, 0, 0, 0.1);
@@ -65,18 +64,17 @@ body {
 .calculator-keypad {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
     gap: 5px;
-    padding: 10px;
 }
 
 .calculator-keypad button {
     padding: 20px;
     font-size: 18px;
     border: none;
-    background-color: #f2f2f2;
     cursor: pointer;
     border-radius: 5px;
-    transition: background-color 0.3s;
+    transition: background-color 0.5s;
 }
 
 .calculator-keypad button:hover {
@@ -84,11 +82,8 @@ body {
 }
 
 .calculator-keypad .equals {
-    grid-column: span 2;
-}
-
-.calculator-keypad .number.zero {
-    grid-column: span 2;
+    grid-column: -2 / -1;
+    grid-row: 4 / 6;
 }
 
 .calculator-keypad .clear {
@@ -106,4 +101,16 @@ body {
 
 .calculator-keypad .operator:hover {
     background-color: #ffba4d;
+}
+
+.calculator-history {
+    height: 60vh;
+    margin: 20px;
+    width: 150px;
+    background-color: rgba(71, 71, 71, 0.14);
+    color: white;
+    padding: 5px 10px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
 }
