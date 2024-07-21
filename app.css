@@ -10,18 +10,14 @@ html {
 
 body {
     min-height: 100vh;
-    background: linear-gradient(
-        to right bottom,
-        rgb(225, 240, 250),
-        rgb(61, 131, 172)
-    );
+    background: linear-gradient(to right bottom, rgb(19, 30, 37), rgb(0, 0, 0));
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .calculator {
-    height: 60vh;
+    min-height: fit-content;
     min-width: 370px;
     max-width: 370px;
     border: 1px solid whitesmoke;
@@ -104,7 +100,7 @@ body {
 }
 
 .calculator-history {
-    height: 60vh;
+    height: 65vh;
     margin: 20px;
     width: 150px;
     background-color: rgba(71, 71, 71, 0.14);
@@ -113,4 +109,41 @@ body {
     font-weight: bold;
     text-align: center;
     border-radius: 5px;
+}
+
+.calculator-history hr {
+    margin: 10px 2px;
+}
+
+.calculator-history_title {
+    color: rgba(255, 255, 255, 0.44);
+    padding: 5px;
+}
+
+.calculator-history_btn {
+    color: white;
+    background-color: rgba(141, 127, 127, 0.4);
+    border: none;
+    padding: 4px 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    outline: none;
+    display: none;
+}
+
+.calculator-history_btn.active {
+    display: block;
+}
+
+.calculator-history_entries {
+    padding: 10px;
+}
+
+.calculator-history_entries {
+    list-style: none;
+    font-size: medium;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.44);
+    border-bottom: 1px solid rgba(101, 100, 100, 0.41);
+    padding: 2px;
 }
