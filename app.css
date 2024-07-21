@@ -16,6 +16,13 @@ body {
     align-items: center;
 }
 
+.calculator-container {
+    min-height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .calculator {
     min-height: fit-content;
     min-width: 370px;
@@ -28,10 +35,10 @@ body {
 
 .calculator-display {
     width: 100%;
-    min-height: 20%;
+    min-height: 100px;
     max-height: min-content;
     border-radius: 5px;
-    background-color: rgba(71, 71, 71, 0.14);
+    background-color: rgba(133, 133, 133, 0.14);
     box-shadow: 2px 14px 15px 5px rgba(0, 0, 0, 0.1);
     color: white;
     word-break: break-all;
@@ -40,19 +47,23 @@ body {
     flex-direction: column;
     justify-content: space-between;
     padding-right: 5px;
+    margin-bottom: 5px;
 }
 
 .currentNumber {
+    height: 45%;
     font-size: 35px;
     font-weight: bold;
 }
 
 .previousNumber {
+    height: 35%;
     color: rgb(199, 199, 199);
     font-size: 20px;
 }
 
 .mathSymbol {
+    height: 20%;
     font-size: 22px;
     font-weight: bold;
 }
@@ -100,7 +111,7 @@ body {
 }
 
 .calculator-history {
-    height: 65vh;
+    min-height: 475px;
     margin: 20px;
     width: 150px;
     background-color: rgba(71, 71, 71, 0.14);
