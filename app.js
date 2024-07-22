@@ -1,58 +1,83 @@
-// const currentNumber = document.querySelector("currentNumber") as HTMLElement;
-// const previousNumber = document.querySelector("previousNumber") as HTMLElement;
-// const mathSymbol = document.querySelector("mathSymbol") as HTMLElement;
-// const equalsButton = document.querySelector("equals") as HTMLElement;
-// const zeroButton = document.querySelector("zero") as HTMLElement;
-// const zeroZeroButton = document.querySelector("zero-zero") as HTMLElement;
-// const clearButton = document.querySelector("clear") as HTMLElement;
-// const numberButtons = document.querySelectorAll(
-//     ".number"
-// ) as NodeListOf<HTMLElement>;
-// const operatorButtons = document.querySelectorAll(
-//     ".operator"
-// ) as NodeListOf<HTMLElement>;
-// const calculatorHistory = document.querySelector(
-//     "calculator-history_entires"
-// ) as HTMLElement;
-// const clearHistoryButton = document.querySelector(
-//     "calculator-history_btn"
-// ) as HTMLElement;
-var currentNumber = document.querySelector(".currentNumber");
-var previousNumber = document.querySelector(".previousNumber");
-var mathSymbol = document.querySelector(".mathSymbol");
-var equalsButton = document.querySelector(".equals");
-var zeroButton = document.querySelector(".zero");
-var zeroZeroButton = document.querySelector(".zero-zero");
-var clearButton = document.querySelector(".clear");
-var numberButtons = document.querySelectorAll(".number");
-var operatorButtons = document.querySelectorAll(".operator");
-var calculatorHistory = document.querySelector(".calculator-history_entries");
-var clearHistoryButton = document.querySelector(".calculator-history_btn");
-var result;
+"use strict";
+const currentNumber = document.querySelector(".currentNumber");
+const previousNumber = document.querySelector(".previousNumber");
+const mathSymbol = document.querySelector(".mathSymbol");
+const equalsButton = document.querySelector(".equals");
+const zeroButton = document.querySelector(".zero");
+const zeroZeroButton = document.querySelector(".zero-zero");
+const clearButton = document.querySelector(".clear");
+const numberButtons = document.querySelectorAll(".number");
+const operatorButtons = document.querySelectorAll(".operator");
+const calculatorHistory = document.querySelector(".calculator-history_entries");
+const clearHistoryButton = document.querySelector(".calculator-history_btn");
+let result;
 // Calculator functions:
 function displayNumbers() {
     var _a;
+    const textContent = (_a = this.textContent) !== null && _a !== void 0 ? _a : "";
+    // console.log("text: ", textContent);
     // Check for decimal points and update the content
-    if (this.textContent === "." && currentNumber.innerHTML.includes(".")) {
+    if (textContent === "," && currentNumber.innerHTML.includes(","))
+        return; // Prevent multiple decimal points
+    if (textContent === "," && currentNumber.innerHTML === "") {
+        currentNumber.innerHTML = ",0"; // Start with ,0 if empty
         return;
     }
-    if (this.textContent === "." && currentNumber.innerHTML === "") {
-        currentNumber.innerHTML = ".0";
-        return;
+    if (textContent === "00" && currentNumber.innerHTML === "0") {
+        return; // Prevent numbers starting with 00
     }
-    console.log(this);
     // Append the text content of the clicked button to the currentNumber
-    currentNumber.innerHTML += (_a = this.textContent) !== null && _a !== void 0 ? _a : "";
+    currentNumber.innerHTML += textContent;
 }
-function operate() { }
-function showResult() { }
+function operate() {
+    if (currentNumber.innerHTML === "" && this.textContent === "-") {
+        currentNumber.innerHTML = "-";
+        return;
+    }
+    else if (currentNumber.innerHTML === "")
+        return;
+    if (mathSymbol.innerHTML !== "") {
+        showResult();
+    }
+    previousNumber.innerHTML = currentNumber.innerHTML;
+    mathSymbol.innerHTML = this.textContent; // Non-null assertion
+    currentNumber.innerHTML = "";
+}
+function showResult() {
+    if (previousNumber.innerHTML === "" || currentNumber.innerHTML === "") {
+        return;
+    }
+    let a = Number(currentNumber.innerHTML);
+    let b = Number(previousNumber.innerHTML);
+    let operator = mathSymbol.innerHTML;
+    switch (operator) {
+        case "+":
+            result = b + a;
+            break;
+        case "-":
+            result = b - a;
+            break;
+        case "x":
+            result = a * b;
+            break;
+        case ":":
+            result = b / a;
+            break;
+        case "2^":
+            result = b ** a;
+            break;
+        default:
+            return; // Exit if no valid operator
+    }
+    currentNumber.innerHTML = String(result); // Convert back to string
+    previousNumber.innerHTML = "";
+    mathSymbol.innerHTML = "";
+}
 function clearResult() { }
 function clearHistory() { }
 // Button events:
-numberButtons.forEach(function (button) {
-    return button.addEventListener("click", displayNumbers);
-});
-operatorButtons.forEach(function (button) { return button.addEventListener("click", operate); });
+numberButtons.forEach((button) => button.addEventListener("click", displayNumbers));
+operatorButtons.forEach((button) => button.addEventListener("click", operate));
 equalsButton.addEventListener("click", showResult);
 clearButton.addEventListener("click", clearResult);
 clearHistoryButton.addEventListener("click", clearHistory);
