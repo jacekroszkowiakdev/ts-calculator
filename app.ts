@@ -49,12 +49,14 @@ function displayNumbers(this: HTMLElement): void {
         return;
     }
 
-    // Replace leading zero when another digit is added
+    // Replace leading zero when another digit is added, unless it's a decimal number
     if (
-        currentNumber.innerHTML.startsWith("0") &&
+        currentNumber.innerHTML === "0" &&
+        textContent !== "0" &&
+        textContent !== "," &&
         !currentNumber.innerHTML.startsWith("0,")
     ) {
-        currentNumber.innerHTML = currentNumber.innerHTML.replace(/^0+/, "");
+        currentNumber.innerHTML = "";
     }
 
     // Append the text content of the clicked button to the currentNumber
@@ -83,36 +85,34 @@ function showResult(): void {
     if (previousNumber.innerHTML === "" || currentNumber.innerHTML === "") {
         return;
     }
-    let a = Number(currentNumber.innerHTML);
-    let b = Number(previousNumber.innerHTML);
-    let operator = mathSymbol.innerHTML;
+
+    // Convert commas to dots for calculation
+    const a = parseFloat(currentNumber.innerHTML.replace(",", "."));
+    const b = parseFloat(previousNumber.innerHTML.replace(",", "."));
+    const operator = mathSymbol.innerHTML;
 
     switch (operator) {
         case "+":
             result = b + a;
-            console.log("typeof result", typeof result);
             break;
         case "-":
             result = b - a;
-            console.log("typeof result", typeof result);
             break;
         case "x":
             result = a * b;
-            console.log("typeof result", typeof result);
             break;
         case ":":
             result = b / a;
-            console.log("typeof result", typeof result);
             break;
         case "2^":
             result = b ** a;
-            console.log("typeof result", typeof result);
             break;
         default:
             return; // Exit if no valid operator
     }
 
-    currentNumber.innerHTML = String(result); // Convert back to string
+    // Convert dots back to commas for display
+    currentNumber.innerHTML = String(result).replace(".", ",");
     previousNumber.innerHTML = "";
     mathSymbol.innerHTML = "";
 }
