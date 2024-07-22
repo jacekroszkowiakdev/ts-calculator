@@ -13,18 +13,29 @@ const clearHistoryButton = document.querySelector(".calculator-history_btn");
 let result;
 // Calculator functions:
 function displayNumbers() {
-    var _a;
-    const textContent = (_a = this.textContent) !== null && _a !== void 0 ? _a : "";
-    // console.log("text: ", textContent);
+    const textContent = this.textContent;
     // Check for decimal points and update the content
     if (textContent === "," && currentNumber.innerHTML.includes(","))
         return; // Prevent multiple decimal points
+    // Prevent starting with a decimal point if currentNumber is empty
     if (textContent === "," && currentNumber.innerHTML === "") {
-        currentNumber.innerHTML = ",0"; // Start with ,0 if empty
+        currentNumber.innerHTML = "0,"; // Start with 0, if empty
         return;
     }
-    if (textContent === "00" && currentNumber.innerHTML === "0") {
-        return; // Prevent numbers starting with 00
+    // Prevent multiple leading zeros
+    if (currentNumber.innerHTML === "0" &&
+        (textContent === "0" || textContent === "00")) {
+        return;
+    }
+    // Prevent numbers starting with multiple zeros
+    if ((currentNumber.innerHTML === "0" || currentNumber.innerHTML === "") &&
+        textContent === "00") {
+        return;
+    }
+    // Replace leading zero when another digit is added
+    if (currentNumber.innerHTML.startsWith("0") &&
+        !currentNumber.innerHTML.startsWith("0,")) {
+        currentNumber.innerHTML = currentNumber.innerHTML.replace(/^0+/, "");
     }
     // Append the text content of the clicked button to the currentNumber
     currentNumber.innerHTML += textContent;
@@ -39,6 +50,9 @@ function operate() {
     if (mathSymbol.innerHTML !== "") {
         showResult();
     }
+    // Prevent operation on invalid number 0,
+    if (currentNumber.innerHTML === "0," && mathSymbol)
+        return;
     previousNumber.innerHTML = currentNumber.innerHTML;
     mathSymbol.innerHTML = this.textContent; // Non-null assertion
     currentNumber.innerHTML = "";
@@ -53,18 +67,23 @@ function showResult() {
     switch (operator) {
         case "+":
             result = b + a;
+            console.log("typeof result", typeof result);
             break;
         case "-":
             result = b - a;
+            console.log("typeof result", typeof result);
             break;
         case "x":
             result = a * b;
+            console.log("typeof result", typeof result);
             break;
         case ":":
             result = b / a;
+            console.log("typeof result", typeof result);
             break;
         case "2^":
             result = b ** a;
+            console.log("typeof result", typeof result);
             break;
         default:
             return; // Exit if no valid operator
