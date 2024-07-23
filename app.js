@@ -86,13 +86,31 @@ function showResult() {
         default:
             return; // Exit if no valid operator
     }
+    addToHistory();
     // Convert dots back to commas for display
     currentNumber.innerHTML = String(result).replace(".", ",");
     previousNumber.innerHTML = "";
     mathSymbol.innerHTML = "";
 }
-function clearResult() { }
-function clearHistory() { }
+function clearResult() {
+    result = "";
+    currentNumber.innerHTML = "";
+    previousNumber.innerHTML = "";
+    mathSymbol.innerHTML = "";
+}
+function addToHistory() {
+    const newHistoryEntry = document.createElement("li");
+    newHistoryEntry.innerHTML = `${currentNumber.innerHTML} ${mathSymbol.innerHTML} ${previousNumber.innerHTML} = ${result}`;
+    newHistoryEntry.classList.add("calculator-history_entry");
+    calculatorHistory.appendChild(newHistoryEntry);
+    clearHistoryButton.classList.add("active");
+}
+function clearHistory() {
+    calculatorHistory.textContent = "";
+    if (calculatorHistory.textContent === "") {
+        clearHistoryButton.classList.remove("active");
+    }
+}
 // Button events:
 numberButtons.forEach((button) => button.addEventListener("click", displayNumbers));
 operatorButtons.forEach((button) => button.addEventListener("click", operate));

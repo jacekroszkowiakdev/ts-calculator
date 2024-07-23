@@ -8,17 +8,20 @@ const clearButton = document.querySelector(".clear") as HTMLElement;
 const numberButtons = document.querySelectorAll(
     ".number"
 ) as NodeListOf<HTMLElement>;
+
 const operatorButtons = document.querySelectorAll(
     ".operator"
 ) as NodeListOf<HTMLElement>;
+
 const calculatorHistory = document.querySelector(
     ".calculator-history_entries"
 ) as HTMLElement;
+
 const clearHistoryButton = document.querySelector(
     ".calculator-history_btn"
 ) as HTMLElement;
 
-let result: number;
+let result: number | string;
 
 // Calculator functions:
 function displayNumbers(this: HTMLElement): void {
@@ -111,15 +114,34 @@ function showResult(): void {
             return; // Exit if no valid operator
     }
 
+    addToHistory();
     // Convert dots back to commas for display
     currentNumber.innerHTML = String(result).replace(".", ",");
     previousNumber.innerHTML = "";
     mathSymbol.innerHTML = "";
 }
 
-function clearResult() {}
+function clearResult() {
+    result = "";
+    currentNumber.innerHTML = "";
+    previousNumber.innerHTML = "";
+    mathSymbol.innerHTML = "";
+}
 
-function clearHistory() {}
+function addToHistory() {
+    const newHistoryEntry = document.createElement("li");
+    newHistoryEntry.innerHTML = `${currentNumber.innerHTML} ${mathSymbol.innerHTML} ${previousNumber.innerHTML} = ${result}`;
+    newHistoryEntry.classList.add("calculator-history_entry");
+    calculatorHistory.appendChild(newHistoryEntry);
+    clearHistoryButton.classList.add("active");
+}
+
+function clearHistory() {
+    calculatorHistory.textContent = "";
+    if (calculatorHistory.textContent === "") {
+        clearHistoryButton.classList.remove("active");
+    }
+}
 
 // Button events:
 numberButtons.forEach((button) =>
