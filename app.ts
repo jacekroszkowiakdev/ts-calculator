@@ -76,7 +76,11 @@ function operate(this: HTMLElement): void {
     }
 
     // Prevent operation on invalid number 0,
-    if (currentNumber.innerHTML === "0," && mathSymbol) return;
+    if (
+        (currentNumber.innerHTML === "0," || currentNumber.innerHTML === "-") &&
+        mathSymbol
+    )
+        return;
 
     previousNumber.innerHTML = currentNumber.innerHTML;
 
@@ -89,7 +93,7 @@ function showResult(): void {
         return;
     }
 
-    // Convert commas to dots for calculation
+    // Convert commas to dots for calculation to prevent NaN values
     const a = parseFloat(currentNumber.innerHTML.replace(",", "."));
     const b = parseFloat(previousNumber.innerHTML.replace(",", "."));
     const operator = mathSymbol.innerHTML;
@@ -130,9 +134,12 @@ function clearResult() {
 
 function addToHistory() {
     const newHistoryEntry = document.createElement("li");
-    newHistoryEntry.innerHTML = `${currentNumber.innerHTML} ${mathSymbol.innerHTML} ${previousNumber.innerHTML} = ${result}`;
+    const historyEntriesBreak = document.createElement("hr");
+    newHistoryEntry.innerHTML = `${currentNumber.innerHTML} ${mathSymbol.innerHTML} ${previousNumber.innerHTML} = <p class="history_entry__result">${result}</p>`;
     newHistoryEntry.classList.add("calculator-history_entry");
-    calculatorHistory.appendChild(newHistoryEntry);
+    calculatorHistory
+        .appendChild(newHistoryEntry)
+        .appendChild(historyEntriesBreak);
     clearHistoryButton.classList.add("active");
 }
 

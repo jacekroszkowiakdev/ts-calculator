@@ -113,7 +113,8 @@ body {
 .calculator-history {
     display: flex;
     flex-direction: column;
-    min-height: 475px;
+    height: 475px;
+    /* max-height: 500px; */
     margin: 20px;
     width: 150px;
     background-color: rgba(71, 71, 71, 0.14);
@@ -154,9 +155,21 @@ body {
 
 .calculator-history_entries {
     list-style: none;
-    font-size: medium;
+    font-size: 0.5rem;
+    word-wrap: break-word;
     letter-spacing: 2px;
     color: rgba(255, 255, 255, 0.44);
     border-bottom: 1px solid rgba(101, 100, 100, 0.41);
     padding: 2px;
+    overflow-y: auto;
+}
+
+.history_entry__result {
+    color: rgb(189, 189, 189);
+}
+
+.calculator-history_entries hr {
+    background-color: rgb(117, 132, 145, 0.5);
+    border: 0 none;
+    height: 1px;
 }
